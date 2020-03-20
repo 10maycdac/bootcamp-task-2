@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Message from './../../components/UI/Message/Message';
+import ModalComponent from './../../components/UI/Modal/ModalComponent';
 
 class UploadCatalog extends Component {
 
     state = {
         selectedFile: null,
         uploadedFile: {},
-        msg: ''
+        msg: '',
+        showMsg: false,
+        uploadClicked: false
     }
 
     fileSelectedHandler = event => {
@@ -20,6 +23,9 @@ class UploadCatalog extends Component {
     }
 
     fileUploadHandler = async e => {
+        this.setState({
+            uploadClicked: false
+        });
         const fd = new FormData();
         fd.append('file', this.state.selectedFile);
 
@@ -41,28 +47,63 @@ class UploadCatalog extends Component {
 
             console.log(this.state.msg);
 
+
         } catch (err) {
 
             if (err.response.status === 500) {
 
                 this.setState({
-                    msg: 'There was a problem with the server'
+                    msg: 'There was a problem with the server',
+                    showMsg: true,
+                    uploadClicked: false
                 });
                 console.log(this.state.msg);
             } else {
                 this.setState({
-                    msg: err.response.data.msg
+                    msg: err.response.data.msg,
+                    showMsg: true,
+                    uploadClicked: false
                 });
                 console.log(this.state.msg);
             }
+
         }
     }
+
+    modalHandler = () => {
+        this.setState({
+            uploadClicked: false
+        });
+
+
+        console.log('modalHandler');
+    }
+
+    uploadClickedHandler = () => {
+        this.setState({
+            uploadClicked: true
+        });
+
+
+        console.log('uploadClickHandler');
+    }
+    showMsgHandler = () => {
+        this.setState({
+            showMsg: false
+        });
+    }
+
 
     render() {
 
         return (
             <React.Fragment>
-                <div className="container mt-5">
+                <ModalComponent
+                    clicked={this.state.uploadClicked}
+                    closeHandler={() => this.modalHandler()}
+                    uploadHandler={() => this.fileUploadHandler()}
+                />
+                <div className="container mt-5 offset-md-3">
                     <h1>Upload New Catalog</h1>
                     <p className="text-danger mt-4" >
                         PLEASE NOTE: Uploading a new catalog will overwrite your existing catalog. This action cannot be undone.
@@ -75,8 +116,12 @@ class UploadCatalog extends Component {
                     <p className="text-secondary">If your file is ready, please upload it.</p>
 
                     <div>
+                        <Message
+                            msg={this.state.msg}
+                            show={this.state.showMsg}
+                            showHandler={() => this.showMsgHandler()}
+                        />
 
-                        {this.state.msg ? <Message msg={this.state.msg} /> : null}
                         <input
                             type="file"
                             style={{ display: 'none' }}
@@ -94,7 +139,7 @@ class UploadCatalog extends Component {
                         </button>
                         <button
                             className="btn btn-primary"
-                            onClick={this.fileUploadHandler}
+                            onClick={this.uploadClickedHandler}
                         >
                             UPLOAD
                         </button>
