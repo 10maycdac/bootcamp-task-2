@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Message from './../../components/UI/Message/Message';
 
 class UploadCatalog extends Component {
 
     state = {
         selectedFile: null,
-        uploadedFile: {}
+        uploadedFile: {},
+        msg: ''
     }
 
     fileSelectedHandler = event => {
@@ -13,6 +15,8 @@ class UploadCatalog extends Component {
         this.setState({
             selectedFile: event.target.files[0]
         })
+
+        console.log(this.state.selectedFile);
     }
 
     fileUploadHandler = async e => {
@@ -21,7 +25,6 @@ class UploadCatalog extends Component {
 
         try {
             const res = await axios.post('/upload', fd, {
-                crossdomain: true,
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -32,13 +35,25 @@ class UploadCatalog extends Component {
 
             const { fileName, filePath } = res.data;
             this.setState({
-                uploadedFile: { fileName, filePath }
+                uploadedFile: { fileName, filePath },
+                msg: 'File Uploaded'
             });
+
+            console.log(this.state.msg);
+
         } catch (err) {
+
             if (err.response.status === 500) {
-                console.log('Server Error');
+
+                this.setState({
+                    msg: 'There was a problem with the server'
+                });
+                console.log(this.state.msg);
             } else {
-                console.log(err.response.data.msg);
+                this.setState({
+                    msg: err.response.data.msg
+                });
+                console.log(this.state.msg);
             }
         }
     }
@@ -60,6 +75,8 @@ class UploadCatalog extends Component {
                     <p className="text-secondary">If your file is ready, please upload it.</p>
 
                     <div>
+
+                        {this.state.msg ? <Message msg={this.state.msg} /> : null}
                         <input
                             type="file"
                             style={{ display: 'none' }}
