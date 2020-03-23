@@ -19,8 +19,8 @@ const Message = (props) => {
     return (<React.Fragment></React.Fragment>);
 };
 
-// Message.propTypes = {
-//     msg: PropTypes.string.isRequired
-// };
+Message.propTypes = {
+    msg: PropTypes.string.isRequired
+};
 
 export default Message;
