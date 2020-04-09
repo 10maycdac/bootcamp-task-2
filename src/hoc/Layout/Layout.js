@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Toolbar from './../../components/Navigation/Toolbar/Toolbar';
 import Infobar from './../../components/Navigation/Infobar/Infobar';
-import UploadCatalog from '../../containers/UploadCatalog/UplaodCatalog'
+import UploadCatalog from '../../containers/UploadCatalog/UploadCatalog'
 
 // import classes from './Layout.module.css';
 
