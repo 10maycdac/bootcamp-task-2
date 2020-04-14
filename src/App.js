@@ -1,14 +1,90 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // import './App.css';
-import Layout from './hoc/Layout/Layout';
+import Layout from "./hoc/Layout/Layout.jsx";
+import UploadCatalog from "./containers/UploadCatalog/UploadCatalog.jsx";
 
 function App() {
-  return (
-    <div >
-      <Layout></Layout>
-    </div>
-  );
+	return (
+		<div>
+			<BrowserRouter>
+				<Layout>
+					<Switch>
+						<Route
+							path="/uploadCatalog"
+							exact
+							component={UploadCatalog}
+						/>
+						<Route
+							path="/db_underProgress"
+							exact
+							render={() => (
+								<div
+									style={{
+										display: "flex",
+										justifyContent: "space-around",
+										alignItems: "center",
+										height: "100vh",
+									}}
+								>
+									<h1>Dashboard.</h1>
+								</div>
+							)}
+						/>
+						<Route
+							path="/ad_underProgress"
+							exact
+							render={() => (
+								<div
+									style={{
+										display: "flex",
+										justifyContent: "space-around",
+										alignItems: "center",
+										height: "100vh",
+									}}
+								>
+									<h1>Advertising.</h1>
+								</div>
+							)}
+						/>
+						<Route
+							path="/rs_underProgress"
+							exact
+							render={() => (
+								<div
+									style={{
+										display: "flex",
+										justifyContent: "space-around",
+										alignItems: "center",
+										height: "100vh",
+									}}
+								>
+									<h1>Research.</h1>
+								</div>
+							)}
+						/>
+						<Route
+							path="/"
+							exact
+							render={() => (
+								<div
+									style={{
+										display: "flex",
+										justifyContent: "space-around",
+										alignItems: "center",
+										height: "100vh",
+									}}
+								>
+									<h1>DemandHelm.</h1>
+								</div>
+							)}
+						/>
+					</Switch>
+				</Layout>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;
