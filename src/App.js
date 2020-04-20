@@ -17,7 +17,7 @@ function App() {
 							component={UploadCatalog}
 						/>
 						<Route
-							path="/db_underProgress"
+							path="/dashboard"
 							exact
 							render={() => (
 								<div
@@ -33,7 +33,7 @@ function App() {
 							)}
 						/>
 						<Route
-							path="/ad_underProgress"
+							path="/advertising"
 							exact
 							render={() => (
 								<div
@@ -49,7 +49,7 @@ function App() {
 							)}
 						/>
 						<Route
-							path="/rs_underProgress"
+							path="/research"
 							exact
 							render={() => (
 								<div

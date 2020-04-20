@@ -1,10 +1,16 @@
-.mainContainer * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-}
+import React from "react";
+import { withRouter, NavLink } from "react-router-dom";
+import styled from "styled-components";
 
-.sideNav {
+const Container = styled.div`
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+`;
+
+const SidNav = styled.header`
 	height: 100%;
 	width: 53px;
 	position: fixed;
@@ -18,9 +24,13 @@
 	justify-content: space-between;
 	flex-direction: column;
 	align-items: center;
-}
 
-.navList {
+	@media screen and (max-height: 450px) {
+		padding-top: 15px;
+	}
+`;
+
+const NavList = styled.ul`
 	list-style: none;
 	li {
 		padding-top: 45px;
@@ -28,74 +38,94 @@
 		justify-content: center;
 		align-items: center;
 	}
-}
+`;
 
-.logo {
+const NavLogo = styled(NavLink)`
 	background-size: cover;
 	background-repeat: no-repeat;
 	transition: transform 0.1s;
-	// display: inline-block;
-	// box-shadow: 0 0 4px 0 #212121;
 
-	&_Main {
-		@extend .logo;
+	&.Main {
 		border-radius: 50%;
 		height: 33px;
 		width: 33px;
 		background-image: url("/main-logo.svg");
 	}
-	&_Dashboard {
-		@extend .logo;
+
+	&.Dashboard {
 		height: 22.5px;
 		width: 22.5px;
 		background-image: url("/dashboard.svg");
+
 		&:hover,
-		&_active {
+		&.active {
 			transform: scale(1.2);
 			background-image: url("/dashboard-selected.svg");
 		}
 	}
-	&_Products {
-		@extend .logo;
+
+	&.Products {
 		height: 20.54px;
 		width: 18.64px;
 		background-image: url("/products.svg");
+
 		&:hover,
-		&_active {
+		&.active {
 			transform: scale(1.2);
 			background-image: url("/products-selected.svg");
 		}
 	}
 
-	&_Advertising {
-		@extend .logo;
+	&.Advertising {
 		transform: scale(0.9);
 		height: 20px;
 		width: 25px;
 		background-image: url("/advertising.svg");
+
 		&:hover,
-		&_active {
+		&.active {
 			transform: scale(1.1);
 			background-image: url("/advertising-selected.svg");
 		}
 	}
 
-	&_Research {
-		@extend .logo;
+	&.Research {
 		height: 22.63px;
 		width: 17.39px;
 		background-image: url("/research.svg");
+
 		&:hover,
-		&_active {
+		&.active {
 			transform: scale(1.2);
 			background-image: url("/research-selected.svg");
 		}
 	}
-}
+`;
 
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-	.sideNav {
-		padding-top: 15px;
-	}
-}
+const sidebar = () => (
+	<Container>
+		<SidNav>
+			<NavLogo to="/" className="Main" />
+			<nav>
+				<NavList>
+					<li>
+						<NavLogo to="/dashboard" className="Dashboard" />
+					</li>
+					<li>
+						<NavLogo to="/uploadCatalog" className="Products" />
+					</li>
+					<li>
+						<NavLogo to="/advertising" className="Advertising" />
+					</li>
+					<li>
+						<NavLogo to="/research" className="Research" />
+					</li>
+				</NavList>
+			</nav>
+			<div></div>
+			<div></div>
+		</SidNav>
+	</Container>
+);
+
+export default withRouter(sidebar);

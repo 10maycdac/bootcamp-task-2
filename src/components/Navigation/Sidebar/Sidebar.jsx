@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter, NavLink } from "react-router-dom";
 
 import classes from "./Sidebar.module.scss";
+
 // import logo from "../../../assets/Images/main-logo.png";
 
 const sidebar = () => (
@@ -15,7 +16,7 @@ const sidebar = () => (
 				<ul className={classes.navList}>
 					<li>
 						<NavLink
-							to="/db_underProgress"
+							to="/dashboard"
 							activeClassName={classes.logo_Dashboard_active}
 							className={classes.logo_Dashboard}
 						></NavLink>
@@ -29,14 +30,14 @@ const sidebar = () => (
 					</li>
 					<li>
 						<NavLink
-							to="/ad_underProgress"
+							to="/advertising"
 							activeClassName={classes.logo_Advertising_active}
 							className={classes.logo_Advertising}
 						></NavLink>
 					</li>
 					<li>
 						<NavLink
-							to="/rs_underProgress"
+							to="/research"
 							activeClassName={classes.logo_Research_active}
 							className={classes.logo_Research}
 						></NavLink>
@@ -51,7 +52,4 @@ const sidebar = () => (
 
 export default withRouter(sidebar);
 
-// activeStyle={{
-// 	transform: "scale("+"1.2"+")",
-// 	backgroundImage: "url(" + "/products-selected.svg" + ")"
-// }}
+
